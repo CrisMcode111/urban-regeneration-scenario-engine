@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "version": "1.0",
+    "scenario_types": ["Stabilization", "Economic_Activation", "Public_Space_Climate"],
+    "max_actions_per_scenario": 3
+  },
+  "district_types": {
+    "LB_HS": [
+      {
+        "scenario_type": "Stabilization",
+        "title": "Stabilize the basics",
+        "actions": [
+          "Targeted cleanup for nuisance properties (trash, overgrowth, dumping hotspots)",
+          "Focused inspections + follow-up fixes for repeat offenders",
+          "Improve street lighting at priority corridors and intersections"
+        ]
+      },
+      {
+        "scenario_type": "Economic_Activation",
+        "title": "Kickstart micro-business activity",
+        "actions": [
+          "Low-barrier pop-up permits for kiosks/markets on selected blocks",
+          "Small business support: simplified permitting + coaching clinic days",
+          "Activate one anchor event per month (market day / food & vendors)"
+        ]
+      },
+      {
+        "scenario_type": "Public_Space_Climate",
+        "title": "Make the district feel safer and cooler",
+        "actions": [
+          "Repair sidewalks on 1–2 priority pedestrian links",
+          "Add shade trees / shade structures on the same links",
+          "Small pocket improvements (benches, crossings, visibility)"
+        ]
+      }
+    ],
+    "HB_HS": [
+      {
+        "scenario_type": "Stabilization",
+        "title": "Reduce friction in an active but stressed district",
+        "actions": [
+          "Compliance sprint: top violation categories + fast resolution process",
+          "Cleanliness & waste management upgrades near business clusters",
+          "Improve safety at peak hours (lighting + visibility + hotspots)"
+        ]
+      },
+      {
+        "scenario_type": "Economic_Activation",
+        "title": "Support businesses while reducing stress",
+        "actions": [
+          "Operational fixes: loading zones / short-stay parking / delivery windows",
+          "Façade + frontage improvements for key corridors",
+          "Business coordination: shared standards for signage, waste, upkeep"
+        ]
+      },
+      {
+        "scenario_type": "Public_Space_Climate",
+        "title": "Upgrade the public realm without disruption",
+        "actions": [
+          "Safer crossings and pedestrian flow on 1–2 corridors",
+          "Shade and stormwater improvements where foot traffic is highest",
+          "Quick public-space refresh (wayfinding, seating, lighting)"
+        ]
+      }
+    ],
+    "HB_LS": [
+      {
+        "scenario_type": "Stabilization",
+        "title": "Maintain low stress proactively",
+        "actions": [
+          "Light-touch inspections + prevention in emerging hotspots",
+          "Keep streets clean: schedule-based cleanup near business areas",
+          "Fix small safety issues before they escalate (lighting, visibility)"
+        ]
+      },
+      {
+        "scenario_type": "Economic_Activation",
+        "title": "Grow quality business activity",
+        "actions": [
+          "Encourage higher-value uses on key blocks (micro-incentives)",
+          "Support night/weekend economy with clear rules and events",
+          "Promote local identity: small placemaking + branded corridor"
+        ]
+      },
+      {
+        "scenario_type": "Public_Space_Climate",
+        "title": "Make it more walkable and attractive",
+        "actions": [
+          "Shade + comfort upgrades on main pedestrian streets",
+          "Bike/walk connectivity improvements to nearby districts",
+          "Public space enhancements near commercial nodes"
+        ]
+      }
+    ],
+    "LB_LS": [
+      {
+        "scenario_type": "Stabilization",
+        "title": "Keep the baseline strong",
+        "actions": [
+          "Preventive maintenance: lighting and cleanliness checks",
+          "Monitor early signs of stress (repeat complaints, hotspots)",
+          "Address small code issues quickly to avoid escalation"
+        ]
+      },
+      {
+        "scenario_type": "Economic_Activation",
+        "title": "Gentle activation without disruption",
+        "actions": [
+          "Start with 1 regular community market / vendor day",
+          "Enable small homegrown commerce with simple permits",
+          "Create a small business node (1 corridor / 1 cluster)"
+        ]
+      },
+      {
+        "scenario_type": "Public_Space_Climate",
+        "title": "Improve comfort and identity",
+        "actions": [
+          "Add shade and seating in a few visible locations",
+          "Improve safe walking links to schools/services",
+          "Small park / pocket space refresh"
+        ]
+      }
+    ]
+  }
+}
