@@ -67,3 +67,39 @@ The goal is to demonstrate how **AI-assisted scenario exploration** could suppor
 
 Hackathon Team – World Wide Webs Hackathon  
 Smart Cities & Infrastructure Track
+
+## District Classification Method
+
+To understand the urban dynamics of Montgomery districts, we created a simple rule-based classification using two indicators:
+
+- **Business activity** – number of active business licenses per district  
+- **Urban stress** – number of code violations per district  
+
+Both datasets were aggregated by **Council District**.
+
+### Step 1 – Calculate city averages
+We compute the average number of business licenses and violations across all districts.
+
+### Step 2 – Assign High / Low levels
+Each district is compared to the city average.
+
+Business level:
+- Above average → **High**
+- Below average → **Low**
+
+Stress level:
+- Above average violations → **High stress**
+- Below average violations → **Low stress**
+
+### Step 3 – District typology
+
+Combining the two dimensions produces four district types:
+
+| Business | Stress | Type |
+|---|---|---|
+| High | Low | HB_LS |
+| High | High | HB_HS |
+| Low | High | LB_HS |
+| Low | Low | LB_LS |
+
+This typology allows the system to generate **targeted urban regeneration scenarios** in the next stage of the project.
