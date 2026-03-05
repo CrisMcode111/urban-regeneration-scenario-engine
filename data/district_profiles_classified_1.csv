@@ -1,0 +1,13 @@
+District,Business_Count,Violations_Count,Business_Level (High/Low),Stress_Level (High/Low),District_Type
+1,6458,5965,High,Low,HB_LS
+2,4104,6896,Low,Low,LB_LS
+3,6308,17120,High,High,HB_HS
+4,2297,17299,Low,High,LB_HS
+5,4296,4483,Low,Low,LB_LS
+6,2247,4678,Low,Low,LB_LS
+7,3711,12059,Low,High,LB_HS
+8,2964,1967,Low,Low,LB_LS
+9,7367,2749,High,Low,HB_LS
+0,19619,1227,High,Low,HB_LS
+,,,,,
+,5937.1,7444.3,,,
