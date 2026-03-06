@@ -3,7 +3,7 @@ import geopandas as gpd
 import json
 
 # Load district boundaries
-districts = gpd.read_file("montgomery_districts.geojson")
+districts = gpd.read_file("../data/montgomery_districts.geojson")
 
 
 # load scenario file
