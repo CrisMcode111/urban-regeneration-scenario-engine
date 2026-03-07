@@ -88,12 +88,27 @@ This typology allows the system to generate **targeted urban regeneration scenar
 
 # Scenario Generation
 
-For each district type, the system generates:
+# Scenario Generation
 
-- **3 regeneration scenarios**
-- a **Scenario Fit Score**
+Regeneration scenarios are generated using a **rule-based compatibility approach**.
 
-Scenarios are selected from a structured **scenario library** and matched to the district typology using a rule-based fit matrix.
+Instead of using a machine learning model, the system applies a **scenario compatibility matrix** that evaluates how suitable each regeneration strategy is for a given district typology.
+
+The system evaluates three scenario families:
+
+- **Stabilization**
+- **Economic Activation**
+- **Public Space & Climate**
+
+Each district type (HB_LS, HB_HS, LB_HS, LB_LS) has a predefined compatibility pattern that assigns scores to these strategies.
+
+For example:
+
+- districts with **high stress** tend to favor **Stabilization strategies**
+- districts with **low business activity** tend to favor **Economic Activation**
+- stable districts may benefit more from **Public Space & Climate improvements**
+
+Each scenario receives a **fit score**, and the scenario with the highest score becomes the **recommended regeneration strategy**, while the others remain visible as alternative options.
 
 ## Example District Output
 
@@ -135,20 +150,22 @@ The validation step checks whether the proposed regeneration strategy logically 
 ---
 
 # Project Pipeline
+
 Municipal Open Data
 ↓
 District Aggregation
 ↓
-Urban Stress Indicators
+District Indicators (Business Activity / Urban Stress)
 ↓
-District Classification
+District Typology (HB_LS, HB_HS, LB_HS, LB_LS)
+↓
+Scenario Compatibility Matrix
 ↓
 Scenario Generation
 ↓
 Scenario Validation
 ↓
 Interactive Map Demo
-
 
 ---
 
@@ -183,7 +200,6 @@ UI demo assets
 
 docs/
 additional notes
-
 
 ---
 
@@ -233,6 +249,10 @@ The goal of the prototype is to demonstrate how municipal data signals
 can support **AI-assisted exploration of urban regeneration strategies**.
 
 # Team
+Team members : 
+Cristina Moussoungedi
+Zahra Rauf
+Vanam Abilash Reddy
+Mariette Soninhekpon
 
-World Wide Webs Hackathon  
-Smart Cities & Infrastructure Track
+Developed during the World Wide Webs Hackathon – Smart Cities Track.
