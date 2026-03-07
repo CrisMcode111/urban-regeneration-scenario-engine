@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Urban Regeneration Scenario Engine</title>
+<!-- Tailwind CSS v3 CDN with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- BEGIN: Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              light: '#f8fafc',
+              muted: '#64748b',
+              accent: '#3b82f6',
+              success: '#10b981',
+              danger: '#ef4444',
+              warning: '#f59e0b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- END: Tailwind Configuration -->
+<!-- BEGIN: Custom Layout Styles -->
+<style data-purpose="layout-and-scroll">
+    body {
+      background-color: #f1f5f9;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 30% 55% 15%;
+      flex-grow: 1;
+      overflow: hidden;
+    }
+    .panel-scroll {
+      overflow-y: auto;
+      height: 100%;
+    }
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .panel-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .panel-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .panel-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+  </style>
+<!-- END: Custom Layout Styles -->
+<!-- BEGIN: Map Styling -->
+<style data-purpose="map-ui">
+    #map-container {
+      background-color: #e2e8f0;
+      position: relative;
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .map-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+    }
+  </style>
+<!-- END: Map Styling -->
+</head>
+<body>
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between shadow-sm z-20">
+<div class="flex items-center gap-4">
+<div class="bg-brand-accent p-2 rounded-lg">
+<svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h1 class="text-lg font-bold text-slate-800 leading-tight">Urban Regeneration Scenario Engine</h1>
+<p class="text-xs text-brand-muted uppercase tracking-wider font-semibold">District Scenario Analytics</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors" title="Settings">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors" title="Help">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.44.896m0 8a1 1 0 100-2 1 1 0 000 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</header>
+<!-- END: MainHeader -->
+<main class="main-grid">
+<!-- BEGIN: LeftPanel (District Overview & Recommendations) -->
+<aside class="panel-scroll bg-white border-r border-slate-200 p-6 space-y-8">
+<!-- District Identity Section -->
+<section data-purpose="district-overview">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="mb-6">
+<label class="block text-[10px] font-bold text-slate-500 uppercase mb-2" for="district-selector">Select District</label>
+<select class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-brand-accent focus:border-brand-accent block p-2.5" id="district-selector" onchange="updateDistrictDashboard(this.value)">
+<option value="0">District 0</option>
+<option selected="" value="1">District 1</option>
+<option value="2">District 2</option>
+<option value="3">District 3</option>
+<option value="4">District 4</option>
+<option value="5">District 5</option>
+<option value="6">District 6</option>
+<option value="7">District 7</option>
+<option value="8">District 8</option>
+<option value="9">District 9</option>
+</select>
+</div><h2 class="text-2xl font-bold text-slate-800" id="district-name">Old Town Central</h2>
+<span class="text-sm font-medium text-slate-500" id="district-type">Mixed-Use Historic Zone</span>
+</div>
+<span class="px-2 py-1 bg-brand-danger/10 text-brand-danger text-xs font-bold rounded uppercase" id="stress-level">High Stress</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 font-medium">Business Count</p>
+<p class="text-xl font-bold text-slate-800" id="business-count">1,248</p>
+</div>
+<div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 font-medium">Violations</p>
+<p class="text-xl font-bold text-brand-danger" id="violations-count">42</p>
+</div>
+</div>
+</section>
+<!-- Scenarios List -->
+<section data-purpose="scenario-recommendations">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-sm font-bold text-slate-700 uppercase tracking-wide">Scenario Recommendations</h3>
+<span class="text-xs text-brand-accent font-medium cursor-pointer">View All</span>
+</div>
+<div class="space-y-4" id="scenario-container">
+<!-- Scenario Card 1 -->
+<article class="p-4 border border-slate-200 rounded-xl hover:border-brand-accent/30 hover:shadow-md transition-all cursor-pointer group">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-bold py-0.5 px-2 bg-slate-100 text-slate-600 rounded">RETAIL FOCUS</span>
+<span class="text-xs font-semibold text-brand-success">Fit Score: 92%</span>
+</div>
+<h4 class="font-bold text-slate-800 group-hover:text-brand-accent transition-colors">Pedestrian Corridor Expansion</h4>
+<div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-brand-success h-full" style="width: 92%;"></div>
+</div>
+<ul class="mt-4 space-y-2">
+<li class="flex items-center gap-2 text-xs text-slate-600">
+<div class="w-1.5 h-1.5 rounded-full bg-brand-accent"></div>
+                Increase pavement width (2.5m)
+              </li>
+<li class="flex items-center gap-2 text-xs text-slate-600">
+<div class="w-1.5 h-1.5 rounded-full bg-brand-accent"></div>
+                Add shared-space lighting
+              </li>
+</ul>
+</article>
+<!-- Scenario Card 2 -->
+<article class="p-4 border border-slate-200 rounded-xl hover:border-brand-accent/30 hover:shadow-md transition-all cursor-pointer group">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-bold py-0.5 px-2 bg-slate-100 text-slate-600 rounded">RESIDENTIAL</span>
+<span class="text-xs font-semibold text-brand-warning">Fit Score: 74%</span>
+</div>
+<h4 class="font-bold text-slate-800 group-hover:text-brand-accent transition-colors">Adaptive Loft Conversion</h4>
+<div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-brand-warning h-full" style="width: 74%;"></div>
+</div>
+<ul class="mt-4 space-y-2">
+<li class="flex items-center gap-2 text-xs text-slate-600">
+<div class="w-1.5 h-1.5 rounded-full bg-brand-accent"></div>
+                Facade restoration grants
+              </li>
+<li class="flex items-center gap-2 text-xs text-slate-600">
+<div class="w-1.5 h-1.5 rounded-full bg-brand-accent"></div>
+                Smart density incentives
+              </li>
+</ul>
+</article>
+</div>
+</section>
+</aside>
+<!-- END: LeftPanel -->
+<!-- BEGIN: CenterPanel (Map Area) -->
+
+<section class="relative" id="map-container">
+
+<iframe
+    src="{{ url_for('static', filename='maps/montgomery_all_districts_analytics_map.html') }}"
+    width="100%"
+    height="100%"
+    style="border:none;">
+</iframe>
+
+</section>
+<!-- END: CenterPanel -->
+<!-- BEGIN: RightPanel (Best Scenario Summary) -->
+<aside class="panel-scroll bg-slate-50 border-l border-slate-200 p-4">
+<div class="space-y-6" id="best-scenario">
+
+<header>
+<h3 class="text-xs font-bold text-slate-500 uppercase mb-4 tracking-wider">
+Top Recommendation
+</h3>
+
+<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 text-center">
+
+<div class="relative inline-flex items-center justify-center mb-2">
+
+<svg class="w-20 h-20">
+<circle cx="40" cy="40" r="30" stroke-width="4" class="text-slate-100" stroke="currentColor" fill="transparent"></circle>
+<circle cx="40" cy="40" r="30" stroke-width="4"
+class="text-brand-success"
+stroke="currentColor"
+fill="transparent"
+stroke-dasharray="188.4"
+stroke-dashoffset="188.4"
+stroke-linecap="round">
+</circle>
+</svg>
+
+<span class="absolute text-xl font-black text-slate-800" id="best-score">
+0
+</span>
+
+</div>
+
+<p class="text-xs font-medium text-slate-500" id="best-title">
+Scenario Title
+</p>
+
+</div>
+</header>
+
+<div class="pt-4 border-t border-slate-200">
+
+<h4 class="text-[10px] font-bold text-slate-500 uppercase mb-3">
+Recommended Actions
+</h4>
+
+<ul id="best-actions" class="text-xs space-y-2 text-slate-700">
+</ul>
+
+</div>
+
+<button
+onclick="generateReport()"
+class="w-full bg-slate-800 text-white py-3 rounded-xl font-bold text-sm shadow-lg hover:bg-slate-900 transition-all mt-6">
+
+Generate Full Report
+
+</button>
+
+</div>
+</aside>
+<!-- END: RightPanel -->
+</main>
+<!-- BEGIN: Logic Scripts -->
+<script data-purpose="canvas-placeholders">
+    const districtData = JSON.parse('{{ district_data | safe }}');
+
+    function updateDistrictDashboard(id){
+
+    const d = districtData[id];
+    if(!d) return;
+
+    const profile = d.profile;
+    const scenarios = d.scenarios;
+
+    // PROFILE PANEL
+    document.getElementById("district-name").textContent = "District " + id;
+    document.getElementById("district-type").textContent = profile["District_Type"];
+
+    document.getElementById("business-count").textContent =
+        Number(profile["Business_Count"]).toLocaleString();
+
+    document.getElementById("violations-count").textContent =
+        Number(profile["Violations_Count"]).toLocaleString();
+
+    const stress = profile["Stress_Level (High/Low)"];
+
+    const badge = document.getElementById("stress-level");
+    badge.textContent = stress + " Stress";
+
+    if(stress === "High"){
+        badge.className="px-2 py-1 bg-brand-danger/10 text-brand-danger text-xs font-bold rounded uppercase";
+    }else{
+        badge.className="px-2 py-1 bg-brand-success/10 text-brand-success text-xs font-bold rounded uppercase";
+    }
+
+    // SCENARIO LIST
+    const container = document.getElementById("scenario-container");
+    container.innerHTML = "";
+
+    scenarios.forEach(s => {
+
+        const color =
+            s.fit_score >= 80 ? "bg-brand-success" :
+            s.fit_score >= 60 ? "bg-brand-warning" :
+            "bg-slate-400";
+
+        container.innerHTML += `
+
+        <article class="p-4 border border-slate-200 rounded-xl">
+
+        <div class="flex justify-between mb-2">
+        <span class="text-[10px] font-bold px-2 py-1 bg-slate-100 rounded">
+        ${s.scenario_type.replace("_"," ")}
+        </span>
+
+        <span class="text-xs font-bold">
+        Fit Score: ${s.fit_score}%
+        </span>
+        </div>
+
+        <h4 class="font-bold">${s.title}</h4>
+
+        <div class="w-full bg-slate-100 h-1.5 rounded mt-3">
+        <div class="${color} h-full" style="width:${s.fit_score}%"></div>
+        </div>
+
+        <ul class="mt-3 text-xs space-y-1">
+        ${s.actions.map(a=>`<li>• ${a}</li>`).join("")}
+        </ul>
+
+        </article>
+        `;
+    });
+
+    // BEST SCENARIO PANEL
+    const best = d.best;
+
+    const scoreEl = document.getElementById("best-score");
+const titleEl = document.getElementById("best-title");
+const actionsEl = document.getElementById("best-actions");
+
+if(best){
+
+    scoreEl.textContent = best.fit_score;
+    titleEl.textContent = best.title;
+
+    const circle = document.querySelector("#best-scenario circle.text-brand-success");
+
+    const offset = 188.4 - (188.4 * best.fit_score / 100);
+    circle.setAttribute("stroke-dashoffset", offset);
+
+    actionsEl.innerHTML = best.actions
+        .map(a => `<li>• ${a}</li>`)
+        .join("");
+
+}
+    }
+  </script>
+<!-- END: Logic Scripts -->
+
+</body></html>

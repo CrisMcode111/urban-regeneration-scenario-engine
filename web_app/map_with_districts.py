@@ -61,4 +61,4 @@ for _, row in districts.iterrows():
     ).add_to(m)
 
 
-m.save("montgomery_all_districts_map.html")
+m.save("static/maps/montgomery_all_districts_map.html")

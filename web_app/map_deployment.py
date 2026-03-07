@@ -36,6 +36,6 @@ for i in range(len(df)):
     ).add_to(m)
 
 # Save map
-m.save("montgomery_districts_map.html")
+m.save("static/maps/montgomery_districts_map.html")
 
 print("Map created: montgomery_districts_map.html")

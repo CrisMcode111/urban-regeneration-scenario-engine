@@ -119,6 +119,6 @@ for _, row in districts.iterrows():
 # ----------------------------
 # Save map
 # ----------------------------
-m.save("montgomery_all_districts_analytics_map.html")
+m.save("static/maps/montgomery_all_districts_analytics_map.html")
 
 print("Map saved successfully")
