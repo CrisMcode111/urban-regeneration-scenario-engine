@@ -6,7 +6,10 @@ import json
 
 app = Flask(__name__)
 
-df = pd.read_csv("../data/district_profiles_classified_1.csv")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+data_path = os.path.join(BASE_DIR, "data", "district_profiles_classified_1.csv")
+
+df = pd.read_csv(data_path)
 df["District"] = df["District"].astype(str)
 
 with open("../data/scenario_validation.json") as f:
