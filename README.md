@@ -88,8 +88,6 @@ This typology allows the system to generate **targeted urban regeneration scenar
 
 # Scenario Generation
 
-# Scenario Generation
-
 Regeneration scenarios are generated using a **rule-based compatibility approach**.
 
 Instead of using a machine learning model, the system applies a **scenario compatibility matrix** that evaluates how suitable each regeneration strategy is for a given district typology.
@@ -174,12 +172,24 @@ Interactive Map Demo
 This MVP leverages several tools introduced during the hackathon:
 Tools and technologies used
 
-- **Web interface (HTML / JavaScript / CSS)** – prototype user interface
-- **GeoJSON datasets** – district spatial data representation
-- **Antigravity** – logic flow and AI orchestration
-- **OmniGuide** – project structuring support
-- **AppClaimsEvaluator** – validation of project claims
-- **Bright Data Integration Helper** – contextual enrichment
+- **Python** – scenario generation logic and data processing  
+- **HTML / JavaScript / CSS** – web application interface   
+- **GeoJSON** – spatial representation of district boundaries   
+- **Render** – cloud deployment and hosting  
+- **Google Stitch** – interface design support  
+- **ChatGPT** – debugging and development assistance
+---
+
+# How to Run the Project
+
+### 1. Clone the repository
+git clone https://github.com/your-repository-link
+
+### 2. Install dependencies
+pip install -r requirements.txt
+
+### 3. Run the application
+python web_app/app.py
 
 ---
 
@@ -227,6 +237,10 @@ Several simplifying assumptions were made:
 
 The goal of the prototype is to demonstrate how municipal data signals
 can support **AI-assisted exploration of urban regeneration strategies**.
+
+## Live Demo
+
+https://urban-regeneration-scenario-engine-1.onrender.com
 
 # Team
 Team members : 
