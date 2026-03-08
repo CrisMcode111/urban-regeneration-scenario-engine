@@ -7,13 +7,15 @@ import json
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-data_path = os.path.join(BASE_DIR, "data", "district_profiles_classified_1.csv")
+DATA_DIR = os.path.join(BASE_DIR, "data")
 
-df = pd.read_csv(data_path)
+df = pd.read_csv(os.path.join(DATA_DIR, "district_profiles_classified_1.csv"))
+
 df["District"] = df["District"].astype(str)
 
-with open("../data/scenario_validation.json") as f:
+with open(os.path.join(DATA_DIR, "scenario_validation.json")) as f:
     scenarios = json.load(f)
+
 
 # convert scenarios list → dictionary
 scenario_dict = {d["district"]: d["scenario"] for d in scenarios}
