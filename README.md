@@ -172,34 +172,14 @@ Interactive Map Demo
 # Tools Used
 
 This MVP leverages several tools introduced during the hackathon:
+Tools and technologies used
 
-- **Google Stitch** – UI and demo interface
+- **Web interface (HTML / JavaScript / CSS)** – prototype user interface
+- **GeoJSON datasets** – district spatial data representation
 - **Antigravity** – logic flow and AI orchestration
 - **OmniGuide** – project structuring support
 - **AppClaimsEvaluator** – validation of project claims
 - **Bright Data Integration Helper** – contextual enrichment
-
----
-
-# Repository Structure
-analysis/
-generate_scenarios.py
-validate_scenarios.py
-
-data/
-district_profiles_classified_1.csv
-SDE_Code_Violations.csv
-scenario_library.json
-district_scenarios.json
-scenario_validation.json
-brightdata_montgomery_sample.csv
-fit_matrix.csv
-
-demo/
-UI demo assets
-
-docs/
-additional notes
 
 ---
 
