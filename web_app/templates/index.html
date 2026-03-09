@@ -362,8 +362,20 @@ if(best){
         .map(a => `<li>• ${a}</li>`)
         .join("");
 
-}
     }
+    }
+
+    function generateReport(){
+
+    const district = document.getElementById("district-selector").value;
+
+    window.location.href = "/generate_pdf/" + district;
+
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+    updateDistrictDashboard("1");
+    });
   </script>
 <!-- END: Logic Scripts -->
 

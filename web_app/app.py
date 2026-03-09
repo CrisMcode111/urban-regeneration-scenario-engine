@@ -1,8 +1,12 @@
 import os
-
+from flask import send_file
+import io
+from reportlab.pdfgen import canvas
 from flask import Flask, render_template
 import pandas as pd
+
 import json
+
 
 app = Flask(__name__)
 
@@ -42,6 +46,81 @@ def dashboard():
     return render_template(
         "index.html",
         district_data=json.dumps(district_data)
+    )
+
+
+@app.route("/generate_pdf/<district_id>")
+def generate_pdf(district_id):
+
+    data = district_data.get(district_id)
+
+    if not data:
+        return "District not found"
+
+    profile = data["profile"]
+    scenarios = data["scenarios"]
+
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer)
+
+    y = 780
+
+    p.drawString(100, y, f"District Report: {district_id}")
+    y -= 30
+
+    # -------------------
+    # PROFILE
+    # -------------------
+
+    p.drawString(100, y, "District Profile")
+    y -= 20
+
+    p.drawString(120, y, f"Business Count: {profile['Business_Count']}")
+    y -= 18
+
+    p.drawString(120, y, f"Violations Count: {profile['Violations_Count']}")
+    y -= 18
+
+    p.drawString(120, y, f"Business Level: {profile['Business_Level (High/Low)']}")
+    y -= 18
+
+    p.drawString(120, y, f"Stress Level: {profile['Stress_Level (High/Low)']}")
+    y -= 18
+
+    p.drawString(120, y, f"District Type: {profile['District_Type']}")
+    y -= 30
+
+    # -------------------
+    # SCENARIOS
+    # -------------------
+
+    p.drawString(100, y, "Scenarios")
+    y -= 20
+
+    for s in scenarios:
+
+        p.drawString(120, y, f"{s['title']} (Fit Score: {s['fit_score']})")
+        y -= 18
+
+        for a in s["actions"]:
+            p.drawString(140, y, f"- {a}")
+            y -= 16
+
+            if y < 100:
+                p.showPage()
+                y = 780
+
+        y -= 10
+
+    p.save()
+
+    buffer.seek(0)
+
+    return send_file(
+        buffer,
+        as_attachment=True,
+        download_name=f"district_{district_id}_report.pdf",
+        mimetype="application/pdf"
     )
 
 if __name__ == "__main__":
