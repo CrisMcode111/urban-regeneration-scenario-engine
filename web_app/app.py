@@ -122,6 +122,19 @@ def generate_pdf(district_id):
         download_name=f"district_{district_id}_report.pdf",
         mimetype="application/pdf"
     )
+from agent import graph
+
+@app.route("/run_agent/<district_id>")
+def run_agent(district_id):
+
+    result = graph.invoke({
+        "district_id": district_id,
+        "data": {},
+        "analysis": "",
+        "scenarios": [],
+        "validation": "",
+        "history": []
+    })
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
