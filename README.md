@@ -1,6 +1,6 @@
 # Urban Regeneration Scenario Engine
 
-AI-assisted MVP developed for the **World Wide Webs Hackathon**  
+AI-assisted MVP developed for the **World Wide Webs Hackathon** 
 (Smart Cities & Infrastructure track).
 
 The goal of this project is to explore **district-level urban regeneration scenarios** for the City of Montgomery using publicly available municipal datasets.
